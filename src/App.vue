@@ -1,15 +1,23 @@
 <template>
   <div id="app">
-    <Todos v-bind:todos="todos"/>
+    <Header />
+    <AddTodo />
+    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
   </div>
 </template>
 
 <script>
-import Todos from './components/Todos.vue'
+import Header from './components/layout/Header';
+import AddTodo from './components/AddTodo'
+import Todos from './components/Todos.vue';
+
 export default {
   name: 'App',
   components: {
+    Header,
+    AddTodo,
     Todos
+    
   },
   data() {
     return {
@@ -31,8 +39,14 @@ export default {
         },
       ]
     }
+  }, 
+  methods: {
+    deleteTodo(id) {
+      this.todos = this.todos.filter( todo => todo.id !== id);
+    }
   }
 }
+
 </script>
 
 
